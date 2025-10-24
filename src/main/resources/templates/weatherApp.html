@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="css/weatherApp.css" rel="stylesheet">
+    <title>Daily Weather</title>
+</head>
+<body>
+    <div class="container">
+        <form class="chooseCity" method="get" action="/">
+            <p>
+                <input name="city" placeholder="City" type="text">
+                <button type="submit" class="inbtn" aria-label="Search">Search</button>
+            </p>
+        </form>
+        <h1 class="cityName" th:text="${cityName}"></h1>
+        <img class="weatherCode" th:src="@{${iconPath}}" alt="weather icon" width="96" height="96">
+        <h1 class="temperature" th:text="${temperature}"></h1>
+
+        <button id="openModal">⏏</button>
+        <div class="modal" id="modal">
+            <div class="modal-inner">
+                <div class="hourly-table-wrapper">
+                    <table class="hourly-table">
+                        <tr class="row-time">
+                            <td th:each="h : ${hourlyList}" class="hourly-time" th:text="${h.time}"></td>
+                        </tr>
+                        <tr class="row-icon">
+                            <td th:each="h : ${hourlyList}" class="hourly-icon">
+                                <img class="hourly-weatherCode" th:src="@{${h.weather_code}}" alt="weather icon" loading="lazy">
+                            </td>
+                        </tr>
+                        <tr class="row-temp">
+                            <td th:each="h : ${hourlyList}" class="hourly-temp" th:text="${h.temperature_2m}"></td>
+                        </tr>
+                    </table>
+                </div>
+                <button id="closeModal">✖</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="boot" th:if="${alert}" th:attr="data-alert=${alert}"></div>
+
+    <script src="js/weatherApp.js"></script>
+</body>
+</html>
