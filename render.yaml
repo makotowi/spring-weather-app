@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: spring-weather-app
+    env: docker
+    plan: free
+    autoDeploy: true
